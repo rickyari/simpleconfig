@@ -2,8 +2,8 @@ from django import forms
 
 class LoginForm(forms.Form):
 
-	username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}), max_length=50)
-	password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+	username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username', 'class': 'field'}), max_length=50)
+	password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'field'}))
 
 
 	def clean_username(self):
