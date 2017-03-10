@@ -40,6 +40,6 @@ def dashboard(request):
 def user_logout(request):
     logout(request)
 
-    return HttpResponseRedirect('/logout/')
+    return render(request, 'logout.html')
 
 
