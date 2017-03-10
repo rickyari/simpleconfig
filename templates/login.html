@@ -1,15 +1,16 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html >
 <head>
   <meta charset="UTF-8">
   <title>SimpleConfig</title>
-  
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}" />
 </head>
 
 <body>
-
+<div class="login">
     <h1>SimpleConfig</h1>
+    <h3>Login</h3>
     
     {% if form.error %}
         <p style="color: red;">
@@ -27,8 +28,19 @@
             {{ form.password }}
         </div>
         {% csrf_token %}
-        <input type="submit" value="Submit">
+        <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
     </form>
-  
+    <br>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- login bootsnipp -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9155049400353686"
+     data-ad-slot="9589048256"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+ </div> 
 </body>
 </html>

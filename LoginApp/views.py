@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .forms import LoginForm
+ 
 
 
 # Create your views here.
@@ -13,8 +14,8 @@ def user_login(request):
 
         form = LoginForm(request.POST)
 
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get("username")
+        password = request.POST.get("password")
 
         user = authenticate(username=username, password=password)
 
