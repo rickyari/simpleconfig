@@ -9,6 +9,7 @@ def dashboard(request):
 	return render(request, 'dashboard.html')
 
 
+@login_required
 def show_tsops(request):
 
 	return render(request, 'tsops.html')
