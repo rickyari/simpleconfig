@@ -24,13 +24,16 @@ def show_egencia(request):
 def show_status(request):
 
 	url_api = "http://10.187.100.188:8080/job/LinuxPatchJob/lastBuild/api/json?tree=executor[progress]"
-
 	headers = {"Accept":"application/json"}
-
 	response = requests.get(url_api, headers=headers )
 
 	result = response.json()['executor']
 
-	return render(request, 'status.html', {'result': result})
+	if result != None:
+		result_percent = str(result['progress']) + "%"
+	else:
+		result_percent = "0" + "%"
+		
+	return render(request, 'status.html', {'result': result_percent})
 
 
