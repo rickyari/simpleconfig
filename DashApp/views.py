@@ -20,3 +20,8 @@ def show_egencia(request):
 
 	return render(request, 'egencia.html')
 
+def show_status(request):
+
+	return render(request, 'status.html')
+
+
