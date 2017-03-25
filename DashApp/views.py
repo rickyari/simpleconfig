@@ -8,3 +8,8 @@ def dashboard(request):
 
 	return render(request, 'dashboard.html')
 
+
+def show_tsops(request):
+
+	return render(request, 'tsops.html')
+
