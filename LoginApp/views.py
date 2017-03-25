@@ -22,6 +22,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
+                request.session['logged_in'] = 'True'
                 return HttpResponseRedirect('/dashboard/')
             else:
                 return HttpResponse("Your account is disabled.")
@@ -29,7 +30,11 @@ def user_login(request):
             return HttpResponse("Invalid login details supplied.")
     else:
         form = LoginForm()
-        return render(request, 'login.html', {'form': form})
+
+        if request.session.get('logged_in'):
+            return HttpResponseRedirect('/dashboard/')
+        else:
+            return render(request, 'login.html', {'form': form})
 
 @login_required
 def dashboard(request):
