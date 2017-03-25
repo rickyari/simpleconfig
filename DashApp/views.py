@@ -15,4 +15,8 @@ def show_tsops(request):
 
 	return render(request, 'tsops.html')
 	
+@login_required
+def show_egencia(request):
+
+	return render(request, 'egencia.html')
 
