@@ -19,14 +19,18 @@ function request(){
                     $('#progress-bar').css({
                     width:data
                 });
+                if (data != '0%'){
+                setTimeout(request(), 1000);
 
+                };
                     // This makes it able to send new request on the next interval
                     //response = true;
                 });
             //}
 
-            setTimeout(request(), 1000);
-        }
+            
+            
+        };
         
         request();
 
