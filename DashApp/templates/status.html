@@ -18,9 +18,11 @@ function request(){
 
                     $('#progress-bar').css({
                     width:data
-                });
+                    
+            }).text(data);
+
                 if (data != '0%'){
-                setTimeout(request(), 1000);
+                setTimeout(request(), 3000);
 
                 };
                     // This makes it able to send new request on the next interval
@@ -44,7 +46,7 @@ function request(){
 <div class="progress">
   <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow=""
   aria-valuemin="0" aria-valuemax="100" >
-    {{ result }}
+    
   </div>
 </div>
 </div>
