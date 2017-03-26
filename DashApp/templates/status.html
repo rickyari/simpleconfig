@@ -2,18 +2,44 @@
 
 {% block jquery %}
 
+function request(){
+            //if(response == true){
+                // This makes it unable to send a new request 
+                // unless you get response from last request
+                //response = false;
+                var req = $.ajax({
+                    type:"get",
+                    url:"getpercent/",
+                    
+                });
+
+                req.done(function(data){
+                    //console.log(data);
+
+                    $('#progress-bar').css({
+                    width:data
+                });
+
+                    // This makes it able to send new request on the next interval
+                    //response = true;
+                });
+            //}
+
+            setTimeout(request(), 1000);
+        }
+        
+        request();
+
 {% endblock %}
 
 
 {% block content %}
 
-{{ result }}
-
 <div class="container">
 <h1>TSOPS Status</h1>
 <div class="progress">
-  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow={{ result }}
-  aria-valuemin="0" aria-valuemax="100" style="width:{{ result }}">
+  <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow=""
+  aria-valuemin="0" aria-valuemax="100" >
     {{ result }}
   </div>
 </div>
