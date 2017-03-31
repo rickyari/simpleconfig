@@ -13,7 +13,7 @@ def dashboard(request):
 @login_required
 def show_tsops(request):
 
-	return render(request, 'tsops.html')
+	return HttpResponseRedirect('http://10.187.100.188:8080/job/LinuxPatchJob/')
 	
 @login_required
 def show_egencia(request):
