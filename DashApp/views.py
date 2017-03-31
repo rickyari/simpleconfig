@@ -13,7 +13,7 @@ def dashboard(request):
 @login_required
 def show_tsops(request):
 
-	return HttpResponseRedirect('http://10.187.100.188:8080/job/LinuxPatchJob/')
+	return HttpResponseRedirect('https://drone.idx.expedmz.com/tsops/job/LinuxPatchJob')
 	
 @login_required
 def show_egencia(request):
