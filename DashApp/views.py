@@ -21,20 +21,21 @@ def show_egencia(request):
 
 	return render(request, 'egencia.html')
 
-def show_status(request):
+def tsops_status(request):
 
-	url_api = "http://10.187.100.188:8080/job/LinuxPatchJob/lastBuild/api/json?tree=executor[progress]"
-	headers = {"Accept":"application/json"}
-	response = requests.get(url_api, headers=headers )
+	#url_api = "http://10.187.100.188:8080/job/LinuxPatchJob/lastBuild/api/json?tree=executor[progress]"
+	#headers = {"Accept":"application/json"}
+	#response = requests.get(url_api, headers=headers )
 
-	result = response.json()['executor']
+	#result = response.json()['executor']
 
-	if result != None:
-		result_percent = str(result['progress']) + "%"
-	else:
-		result_percent = "0" + "%"
+	#if result != None:
+	#	result_percent = str(result['progress']) + "%"
+	#else:
+	#	result_percent = "0" + "%"
 		
-	return render(request, 'status.html', {'result': result_percent})
+	#return render(request, 'status.html', {'result': result_percent})
+	return render(request, 'tsops_status.html')
 
 
 def get_percent(request):
