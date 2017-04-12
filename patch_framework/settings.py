@@ -56,7 +56,7 @@ ROOT_URLCONF = 'patch_framework.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates','/home/vagrant/Projects/simpleconfig/templates'],
+        'DIRS': ['templates','/data/noc/patch_framework/simpleconfig/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,7 +125,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static", '/home/vagrant/Projects/simpleconfig/static')
+    os.path.join(BASE_DIR, "static", '/data/noc/patch_framework/simpleconfig/static')
 ]
 
 

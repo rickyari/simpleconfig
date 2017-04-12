@@ -8,6 +8,6 @@ urlpatterns = [
     url(r'tsops/$', views.show_tsops, name = 'tsops'),
     url(r'egencia/$', views.show_egencia, name = 'egencia'),
     url(r'Tsops status/$', views.tsops_status, name = 'Tsops status'),
-    url(r'getpercent/$', views.get_percent, name = 'getpercent')
+   # url(r'getpercent/$', views.get_percent, name = 'getpercent')
 
 ]
