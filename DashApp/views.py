@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
-#import requests
+from .scripts import JenkinsApi
 
 # Create your views here.
 
@@ -25,8 +25,12 @@ def show_egencia(request):
 
 def tsops_status(request):
 
-	total_services = get_services()
-	return render(request, 'tsops_status.html', {'total_services': total_services})
+	total_services = JenkinsApi.get_services()
+	running_jobs = JenkinsApi.running_jobs()
+	return render(request, 'tsops_status.html',
+	{'total_services': total_services, 
+	'running_jobs': running_jobs}
+	)
 
 
 #def get_percent(request):
@@ -46,20 +50,4 @@ def tsops_status(request):
 #		
 #	return HttpResponse(result_percent)
 
-def get_services():
 
-	import requests
-
-	# Get Total Services
-
-	uri = "http://chexjvaord064:8500/v1/kv/?keys=true"
-	response = requests.get(uri)
-
-	services = set()
-	for keys in response.json():
-		key = keys.split('/')[0]
-		services.add(key)
-	
-	total_services = len(services)
-	
-	return total_services
