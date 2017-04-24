@@ -35,7 +35,8 @@ def running_jobs():
 		jobs = i['executors']
 		for x in jobs:
 			if x['currentExecutable'] != None:
-				running_jobs.append(x['currentExecutable']['url'])
+				if 'LinuxPatchJob' in x['currentExecutable']['url']:
+					running_jobs.append(x['currentExecutable']['url'])
 	
 	return len(running_jobs)
 	
