@@ -29,10 +29,13 @@ def tsops_status(request):
 	total_services = JenkinsApi.get_services()
 	running_jobs = JenkinsApi.running_jobs()
 	services_data = ServiceCriticality.get_criticality()
+	progress_data = ServiceCriticality.CalculatePercent()
+	
 	return render(request, 'tsops_status.html',
 	{'total_services': total_services, 
 	'running_jobs': running_jobs,
-	'services_data': services_data}
+	'services_data': services_data,
+	'progress_data': progress_data}
 	)
 
 
