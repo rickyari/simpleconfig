@@ -6,8 +6,8 @@ from backlog import backlog
 jenkins_server = 'https://drone.idx.expedmz.com/tsops/'
 api_query = 'computer/api/json?tree=computer[executors[currentExecutable[url]],oneOffExecutors[currentExecutable[url]]]&xpath=//url&wrapper=builds'
 
-user = 'gagsingh'
-pwd = 'Dontask@123'
+user = ''
+pwd = ''
 	
 uri = jenkins_server + api_query
 result = requests.get(uri, auth=(user, pwd), verify=False)
