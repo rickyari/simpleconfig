@@ -5,16 +5,17 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-4" style="padding-bottom: 2cm">
     <h1>Running Jobs : {{ running_jobs }}</h1>
     </div>
   </div>
   
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-8" >
     <h1>Overall Service Completion ( 0 / {{ total_services }} )</h1>
         <div class="progress">
-            <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax={{ total_services}} >
+            <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ total_services }}" aria-valuemin="0" aria-valuemax="{{ total_services}}"
+				style="">
             </div>
         </div>
     </div>
@@ -24,7 +25,7 @@
     <div class="col-md-4">
 
     	<p>
-    		<h3>P1 Services (% Complete)</h3>
+    		<h3>P1 Services ( 0 / {{ services_data.p1 }})</h3>
     	</p>
         <div class="progress">
             <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" >
@@ -33,7 +34,7 @@
     </div>
     <div class="col-md-4">
     	<p>
-    		<h3>P2 Services (% Complete)</h3>
+    		<h3>P2 Services ( 0 / {{ services_data.p2 }})</h3>
     	</p>
         <div class="progress">
             <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" >
@@ -42,7 +43,7 @@
     </div>
     <div class="col-md-4">
     	<p>
-    		<h3>P3 Services (% Complete)</h3>
+    		<h3>P3 Services ( 0 / {{ services_data.p3 }})</h3>
     	</p>
         <div class="progress">
             <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" >

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from .scripts import JenkinsApi
+from .scripts import ServiceCriticality
 
 # Create your views here.
 
@@ -27,9 +28,11 @@ def tsops_status(request):
 
 	total_services = JenkinsApi.get_services()
 	running_jobs = JenkinsApi.running_jobs()
+	services_data = ServiceCriticality.get_criticality()
 	return render(request, 'tsops_status.html',
 	{'total_services': total_services, 
-	'running_jobs': running_jobs}
+	'running_jobs': running_jobs,
+	'services_data': services_data}
 	)
 
 
