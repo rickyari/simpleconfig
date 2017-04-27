@@ -32,7 +32,9 @@
     		<h3>P1 Services ( {{ progress_data.p1_patched }} / {{ services_data.p1 }})</h3>
     	</p>
         <div class="progress">
-            <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" >
+            <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" 
+			style="width:{{ progress_data.p1_percent }}%">
+			{{ progress_data.p1_percent }}%
             </div>
         </div>
     </div>
@@ -41,7 +43,9 @@
     		<h3>P2 Services ( {{ progress_data.p2_patched }} / {{ services_data.p2 }})</h3>
     	</p>
         <div class="progress">
-            <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" >
+            <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" 
+			style="width:{{ progress_data.p2_percent }}%">
+			{{ progress_data.p2_percent }}%
             </div>
         </div>
     </div>
@@ -50,7 +54,9 @@
     		<h3>P3 Services ( {{ progress_data.p3_patched }} / {{ services_data.p3 }})</h3>
     	</p>
         <div class="progress">
-            <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" >
+            <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" 
+			style="width:{{ progress_data.p3_percent }}%">
+			{{ progress_data.p3_percent }}%
             </div>
         </div>
     </div>
