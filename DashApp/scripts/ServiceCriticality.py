@@ -1,4 +1,5 @@
 import requests
+from JenkinsApi import get_services
 
 def get_criticality():
 	
@@ -47,6 +48,7 @@ def CalculatePercent():
 	p3_patched = 0
 	
 	data = get_criticality()
+	tot_serv = get_services()
 	
 	for srv1 in data['p1_services']:
 		try:
@@ -93,6 +95,7 @@ def CalculatePercent():
 	p1_percent = int(float(p1_patched) /  len(data['p1_services']) * 100)
 	p2_percent = int(float(p2_patched) /  len(data['p2_services']) * 100)
 	p3_percent = int(float(p3_patched) /  len(data['p3_services']) * 100)
+	total_percent = int(float(total_patched) / tot_serv * 100)
 	
 	return {'total_patched': total_patched,
 			'p1_patched': p1_patched,
@@ -101,6 +104,7 @@ def CalculatePercent():
 			'p1_percent': p1_percent,
 			'p2_percent': p2_percent,
 			'p3_percent': p3_percent,
+			'tot_percent': total_percent
 			}
 	
 	
