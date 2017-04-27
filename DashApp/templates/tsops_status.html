@@ -1,12 +1,8 @@
 {% extends 'base.html' %}
 
 
-
-
-
 {% block body %}
 
-{{ progress_data }}
 <div class="container">
   <div class="row">
     <div class="col-sm-4" style="padding-bottom: 2cm">
@@ -19,7 +15,8 @@
     <h1>Overall Service Completion ( {{ progress_data.total_patched }} / {{ total_services }} )</h1>
         <div class="progress">
             <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ total_services }}" aria-valuemin="0" aria-valuemax="{{ total_services}}"
-				style="">
+				style="width:{{ progress_data.tot_percent }}%">
+				{{ progress_data.tot_percent }}%
             </div>
         </div>
     </div>
