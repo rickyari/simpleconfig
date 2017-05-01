@@ -48,6 +48,7 @@ def CalculatePercent():
 	p1_patched = 0
 	p2_patched = 0
 	p3_patched = 0
+	dummy_entries = []
 	
 	data = get_criticality()
 	tot_serv = len(data['services'])
@@ -66,6 +67,7 @@ def CalculatePercent():
 				p1_patched += 1
 		else:
 			tot_serv -= 1
+			dummy_entries.append(srv1)
 		
 	for srv2 in data['p2_services']:
 		
@@ -81,6 +83,7 @@ def CalculatePercent():
 				p2_patched += 1
 		else:
 			tot_serv -= 1
+			dummy_entries.append(srv2)
 		
 	for srv3 in data['p3_services']:
 		
@@ -96,6 +99,7 @@ def CalculatePercent():
 				p3_patched += 1
 		else:
 			tot_serv -= 1
+			dummy_entries.append(srv3)
 	
 	p1_percent = int(float(p1_patched) /  len(data['p1_services']) * 100)
 	p2_percent = int(float(p2_patched) /  len(data['p2_services']) * 100)
@@ -110,7 +114,8 @@ def CalculatePercent():
 			'p2_percent': p2_percent,
 			'p3_percent': p3_percent,
 			'tot_percent': total_percent,
-			'tot_serv': tot_serv
+			'tot_serv': tot_serv,
+			'dummy_entries': dummy_entries
 			}
 	
 	
