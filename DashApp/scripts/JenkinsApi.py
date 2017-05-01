@@ -11,8 +11,9 @@ def get_services():
 	for keys in response.json():
 		key = keys.split('/')[0]
 		services.add(key)
+		
 	
-	total_services = len(services)
+	total_services = services
 	
 	return total_services
 	
@@ -22,8 +23,8 @@ def running_jobs():
 	
 	jenkins_server = 'https://drone.idx.expedmz.com/tsops/'
 	api_query = 'computer/api/json?tree=computer[executors[currentExecutable[url]],oneOffExecutors[currentExecutable[url]]]&xpath=//url&wrapper=builds'
-	user = ''
-	pwd = ''
+	user = 'gagsingh'
+	pwd = 'Dontask@123'
 	
 	uri = jenkins_server + api_query
 	result = requests.get(uri, auth=(user, pwd), verify=False)
