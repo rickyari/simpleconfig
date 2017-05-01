@@ -3,13 +3,14 @@ from JenkinsApi import get_services
 
 def get_criticality():
 	
-	uri = "http://chexjvaord064:8500/v1/kv/?keys=true"
-	response = requests.get(uri)
+	#uri = "http://chexjvaord064:8500/v1/kv/?keys=true"
+	#response = requests.get(uri)
 	
-	services = set()
-	for keys in response.json():
-		key = keys.split('/')[0]
-		services.add(key)
+	#services = set()
+	#for keys in response.json():
+	#	key = keys.split('/')[0]
+	#	services.add(key)
+	services = get_services()
 	
 	p1 = 0
 	p2 = 0
@@ -37,7 +38,8 @@ def get_criticality():
 			'p3': p3, 
 			'p1_services': p1_services, 
 			'p2_services': p2_services, 
-			'p3_services': p3_services
+			'p3_services': p3_services,
+			'services': services
 			}
 
 def CalculatePercent():
@@ -46,14 +48,16 @@ def CalculatePercent():
 	p1_patched = 0
 	p2_patched = 0
 	p3_patched = 0
+	dummy_entries = []
 	
 	data = get_criticality()
-	tot_serv = get_services()
+	tot_serv = len(data['services'])
 	
 	for srv1 in data['p1_services']:
-		try:
-			uri = 'http://chexjvaord064:8500/v1/kv/%s/PROD/PATCHING/?keys' % srv1
-			keys = requests.get(uri)
+		
+		uri = 'http://chexjvaord064:8500/v1/kv/%s/PROD/PATCHING/?keys' % srv1
+		keys = requests.get(uri)
+		if keys.status_code == 200:
 			key = keys.json()[0]
 			url = 'http://chexjvaord064:8500/v1/kv/%s?raw' % key
 			patch_verify = requests.get(url)
@@ -61,13 +65,15 @@ def CalculatePercent():
 			if 'CHG0320706' in out:
 				total_patched += 1
 				p1_patched += 1
-		except ValueError:
-			pass
+		else:
+			tot_serv -= 1
+			dummy_entries.append(srv1)
 		
 	for srv2 in data['p2_services']:
-		try:
-			uri = 'http://chexjvaord064:8500/v1/kv/%s/PROD/PATCHING/?keys' % srv2
-			keys = requests.get(uri)
+		
+		uri = 'http://chexjvaord064:8500/v1/kv/%s/PROD/PATCHING/?keys' % srv2
+		keys = requests.get(uri)
+		if keys.status_code == 200:
 			key = keys.json()[0]
 			url = 'http://chexjvaord064:8500/v1/kv/%s?raw' % key
 			patch_verify = requests.get(url)
@@ -75,13 +81,15 @@ def CalculatePercent():
 			if 'CHG0320706' in out:
 				total_patched += 1
 				p2_patched += 1
-		except ValueError:
-			pass
+		else:
+			tot_serv -= 1
+			dummy_entries.append(srv2)
 		
 	for srv3 in data['p3_services']:
-		try:
-			uri = 'http://chexjvaord064:8500/v1/kv/%s/PROD/PATCHING/?keys' % srv3
-			keys = requests.get(uri)
+		
+		uri = 'http://chexjvaord064:8500/v1/kv/%s/PROD/PATCHING/?keys' % srv3
+		keys = requests.get(uri)
+		if keys.status_code == 200:
 			key = keys.json()[0]
 			url = 'http://chexjvaord064:8500/v1/kv/%s?raw' % key
 			patch_verify = requests.get(url)
@@ -89,8 +97,9 @@ def CalculatePercent():
 			if 'CHG0320706' in out:
 				total_patched += 1
 				p3_patched += 1
-		except ValueError:
-			pass
+		else:
+			tot_serv -= 1
+			dummy_entries.append(srv3)
 	
 	p1_percent = int(float(p1_patched) /  len(data['p1_services']) * 100)
 	p2_percent = int(float(p2_patched) /  len(data['p2_services']) * 100)
@@ -104,7 +113,9 @@ def CalculatePercent():
 			'p1_percent': p1_percent,
 			'p2_percent': p2_percent,
 			'p3_percent': p3_percent,
-			'tot_percent': total_percent
+			'tot_percent': total_percent,
+			'tot_serv': tot_serv,
+			'dummy_entries': dummy_entries
 			}
 	
 	

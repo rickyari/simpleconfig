@@ -12,7 +12,7 @@
   
   <div class="row">
     <div class="col-md-8" >
-    <h1>Overall Service Completion ( {{ progress_data.total_patched }} / {{ total_services }} )</h1>
+    <h1>Overall Service Completion ( {{ progress_data.total_patched }} / {{ progress_data.tot_serv }} )</h1>
         <div class="progress">
             <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ total_services }}" aria-valuemin="0" aria-valuemax="{{ total_services}}"
 				style="width:{{ progress_data.tot_percent }}%">
@@ -23,7 +23,7 @@
   </div>
   
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4" style="padding-bottom: 2cm">
 
     	<p>
     		<h3>P1 Services ( {{ progress_data.p1_patched }} / {{ services_data.p1 }})</h3>
@@ -58,6 +58,16 @@
         </div>
     </div>
   </div>
+	<div class="row">
+		<div class="col-sm-4" >
+		<h1>Dummy Entries :</h1>
+		<ol>
+		{% for entry in progress_data.dummy_entries %}
+			<li>{{entry}}</li>
+		{% endfor %}
+		</ol>
+		</div>
+	</div>
 </div>
 
 

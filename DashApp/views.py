@@ -26,7 +26,7 @@ def show_egencia(request):
 
 def tsops_status(request):
 
-	total_services = JenkinsApi.get_services()
+	total_services = len(JenkinsApi.get_services())
 	running_jobs = JenkinsApi.running_jobs()
 	services_data = ServiceCriticality.get_criticality()
 	progress_data = ServiceCriticality.CalculatePercent()
