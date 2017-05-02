@@ -101,9 +101,22 @@ def CalculatePercent():
 			tot_serv -= 1
 			dummy_entries.append(srv3)
 	
-	p1_percent = int(float(p1_patched) /  len(data['p1_services']) * 100)
-	p2_percent = int(float(p2_patched) /  len(data['p2_services']) * 100)
-	p3_percent = int(float(p3_patched) /  len(data['p3_services']) * 100)
+	actual_p1_services = data['p1_services']
+	actual_p2_services = data['p2_services']
+	actual_p3_services = data['p3_services']
+	
+	for entry in dummy_entries:
+		if entry in actual_p1_services:
+			actual_p1_services.remove(entry)
+		elif entry in actual_p2_services:
+			actual_p2_services.remove(entry)
+		else:
+			if entry in actual_p3_services:
+				actual_p3_services.remove(entry)		
+	
+	p1_percent = int(float(p1_patched) /  len(actual_p1_services) * 100)
+	p2_percent = int(float(p2_patched) /  len(actual_p2_services) * 100)
+	p3_percent = int(float(p3_patched) /  len(actual_p3_services) * 100)
 	total_percent = int(float(total_patched) / tot_serv * 100)
 	
 	return {'total_patched': total_patched,
@@ -115,7 +128,10 @@ def CalculatePercent():
 			'p3_percent': p3_percent,
 			'tot_percent': total_percent,
 			'tot_serv': tot_serv,
-			'dummy_entries': dummy_entries
+			'dummy_entries': dummy_entries,
+			'actual_p1_services': len(actual_p1_services),
+			'actual_p2_services': len(actual_p2_services),
+			'actual_p3_services': len(actual_p3_services)
 			}
 	
 	
