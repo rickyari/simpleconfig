@@ -117,7 +117,9 @@ def CalculatePercent():
 	p1_percent = int(float(p1_patched) /  len(actual_p1_services) * 100)
 	p2_percent = int(float(p2_patched) /  len(actual_p2_services) * 100)
 	p3_percent = int(float(p3_patched) /  len(actual_p3_services) * 100)
-	total_percent = int(float(total_patched) / tot_serv * 100)
+	total_services = len(actual_p1_services) + len(actual_p2_services) + len(actual_p3_services)
+	total_percent = int(float(total_patched) / total_services * 100)
+	failed_services = total_services - ( p1_patched + p2_patched + p3_patched )
 	
 	return {'total_patched': total_patched,
 			'p1_patched': p1_patched,
@@ -128,10 +130,12 @@ def CalculatePercent():
 			'p3_percent': p3_percent,
 			'tot_percent': total_percent,
 			'tot_serv': tot_serv,
+			'total_services': total_services,
 			'dummy_entries': dummy_entries,
 			'actual_p1_services': len(actual_p1_services),
 			'actual_p2_services': len(actual_p2_services),
-			'actual_p3_services': len(actual_p3_services)
+			'actual_p3_services': len(actual_p3_services),
+			'failed_services': failed_services
 			}
 	
 	
