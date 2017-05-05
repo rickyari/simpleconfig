@@ -11,9 +11,16 @@ def get_services():
 	for keys in response.json():
 		key = keys.split('/')[0]
 		services.add(key)
-		
 	
-	total_services = services
+	lin_services = []
+	for srv in services:
+		srv_url = 'http://chexjvaord064:8500/v1/kv/%s/PROD/OS_TYPE?raw' % srv
+		srv_response = requests.get(srv_url)
+		os_type = srv_response.text
+		if os_type == 'LINUX':
+			lin_services.append(srv)
+	
+	total_services = lin_services
 	
 	return total_services
 	
