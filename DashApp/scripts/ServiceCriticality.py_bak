@@ -18,7 +18,6 @@ def get_criticality():
 	p1_services = []
 	p2_services = []
 	p3_services = []
-	no_criticality = []
 	
 	for srv in services:
 		url = "http://chexjvaord064:8500/v1/kv/%s/BASE/CRITICALITY?raw" % srv
@@ -33,8 +32,6 @@ def get_criticality():
 		elif criticality == 'P3':
 			p3 += 1
 			p3_services.append(srv)
-		else:
-			no_criticality.append(srv)
 			
 	return {'p1': p1, 
 			'p2': p2, 
@@ -42,8 +39,7 @@ def get_criticality():
 			'p1_services': p1_services, 
 			'p2_services': p2_services, 
 			'p3_services': p3_services,
-			'services': services,
-			'no_criticality': no_criticality
+			'services': services
 			}
 
 def CalculatePercent():
@@ -52,12 +48,10 @@ def CalculatePercent():
 	p1_patched = 0
 	p2_patched = 0
 	p3_patched = 0
-	no_criticality_patched = 0
 	dummy_entries = []
 	
 	data = get_criticality()
 	tot_serv = len(data['services'])
-	no_criticality = len(data['no_criticality'])
 	
 	for srv1 in data['p1_services']:
 		
@@ -72,7 +66,7 @@ def CalculatePercent():
 				total_patched += 1
 				p1_patched += 1
 		else:
-			#tot_serv -= 1
+			tot_serv -= 1
 			dummy_entries.append(srv1)
 		
 	for srv2 in data['p2_services']:
@@ -88,7 +82,7 @@ def CalculatePercent():
 				total_patched += 1
 				p2_patched += 1
 		else:
-			#tot_serv -= 1
+			tot_serv -= 1
 			dummy_entries.append(srv2)
 		
 	for srv3 in data['p3_services']:
@@ -104,41 +98,28 @@ def CalculatePercent():
 				total_patched += 1
 				p3_patched += 1
 		else:
-			#tot_serv -= 1
+			tot_serv -= 1
 			dummy_entries.append(srv3)
-			
-	for srv4 in data['no_criticality']:
-		uri = 'http://chexjvaord064:8500/v1/kv/%s/PROD/PATCHING/?keys' % srv4
-		keys = requests.get(uri)
-		if keys.status_code == 200:
-			key = keys.json()[0]
-			url = 'http://chexjvaord064:8500/v1/kv/%s?raw' % key
-			patch_verify = requests.get(url)
-			out = patch_verify.text
-			if 'CHG0320706' in out:
-				total_patched += 1
-				no_criticality_patched += 1
 	
-	actual_p1_services = len(data['p1_services'])
-	actual_p2_services = len(data['p2_services'])
-	actual_p3_services = len(data['p3_services'])
+	actual_p1_services = data['p1_services']
+	actual_p2_services = data['p2_services']
+	actual_p3_services = data['p3_services']
 	
-	#for entry in dummy_entries:
-	#	if entry in actual_p1_services:
-	#		actual_p1_services.remove(entry)
-	#	elif entry in actual_p2_services:
-	#		actual_p2_services.remove(entry)
-	#	else:
-	#		if entry in actual_p3_services:
-	#			actual_p3_services.remove(entry)		
+	for entry in dummy_entries:
+		if entry in actual_p1_services:
+			actual_p1_services.remove(entry)
+		elif entry in actual_p2_services:
+			actual_p2_services.remove(entry)
+		else:
+			if entry in actual_p3_services:
+				actual_p3_services.remove(entry)		
 	
-	p1_percent = int(float(p1_patched) /  len(data['p1_services']) * 100)
-	p2_percent = int(float(p2_patched) /  len(data['p2_services']) * 100)
-	p3_percent = int(float(p3_patched) /  len(data['p3_services']) * 100)
-	#total_services = actual_p1_services + len(actual_p2_services) + len(actual_p3_services)
-	total_percent = int(float(total_patched) / tot_serv * 100)
-	#failed_services = tot_serv - ( p1_patched + p2_patched + p3_patched )
-	no_criticality_percent = int(float(no_criticality_patched) / no_criticality * 100)
+	p1_percent = int(float(p1_patched) /  len(actual_p1_services) * 100)
+	p2_percent = int(float(p2_patched) /  len(actual_p2_services) * 100)
+	p3_percent = int(float(p3_patched) /  len(actual_p3_services) * 100)
+	total_services = len(actual_p1_services) + len(actual_p2_services) + len(actual_p3_services)
+	total_percent = int(float(total_patched) / total_services * 100)
+	failed_services = total_services - ( p1_patched + p2_patched + p3_patched )
 	
 	return {'total_patched': total_patched,
 			'p1_patched': p1_patched,
@@ -149,15 +130,12 @@ def CalculatePercent():
 			'p3_percent': p3_percent,
 			'tot_percent': total_percent,
 			'tot_serv': tot_serv,
-			#'total_services': total_services,
-			#'dummy_entries': dummy_entries,
-			'actual_p1_services': actual_p1_services,
-			'actual_p2_services': actual_p2_services,
-			'actual_p3_services': actual_p3_services,
-			#'failed_services': failed_services
-			'no_criticality' : no_criticality,
-			'no_criticality_percent': no_criticality_percent,
-			'no_criticality_patched': no_criticality_patched
+			'total_services': total_services,
+			'dummy_entries': dummy_entries,
+			'actual_p1_services': len(actual_p1_services),
+			'actual_p2_services': len(actual_p2_services),
+			'actual_p3_services': len(actual_p3_services),
+			'failed_services': failed_services
 			}
 	
 	

@@ -3,16 +3,23 @@
 
 {% block body %}
 
+
+
 <div class="container">
   <div class="row">
     <div class="col-sm-4" style="padding-bottom: 2cm">
-    <h1>Running Jobs : {{ running_jobs }}</h1>
+		<h1>Running Jobs : {{ running_jobs }}</h1>
+    </div>
+	<div class="col-sm-4 col-sm-offset-4" style="padding-bottom: 2cm">
+		<h4>Data Source :</h4>
+		<h5>Running Jobs ==> Jenkins Api</h5>
+		<h5>Service Progress ==> Consul (Managed by TSOPS)</h5>
     </div>
   </div>
   
   <div class="row">
     <div class="col-md-8" >
-    <h1>Overall Service Completion ( {{ progress_data.total_patched }} / {{ progress_data.total_services }} )</h1>
+    <h1>Overall Service Completion ( {{ progress_data.total_patched }} / {{ progress_data.tot_serv }} )</h1>
         <div class="progress">
             <div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ total_services }}" aria-valuemin="0" aria-valuemax="{{ total_services}}"
 				style="width:{{ progress_data.tot_percent }}%">
@@ -23,7 +30,7 @@
   </div>
   
   <div class="row">
-    <div class="col-md-4" style="padding-bottom: 2cm">
+    <div class="col-md-4" >
 
     	<p>
     		<h3>P1 Services ( {{ progress_data.p1_patched }} / {{ progress_data.actual_p1_services }})</h3>
@@ -59,16 +66,22 @@
     </div>
 	
   </div>
+  
 	<div class="row">
-		<div class="col-sm-4" >
-		<h3>Services with No Servers :</h3>
-		<ol>
-		{% for entry in progress_data.dummy_entries %}
-			<li>{{entry}}</li>
-		{% endfor %}
-		</ol>
+		<div class="col-sm-4" style="padding-bottom: 1cm">
+			<h3>Services with No Criticality ( {{ progress_data.no_criticality_patched }} / {{ progress_data.no_criticality }})</h3>
+			<div class="progress">
+				<div id="progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" 
+				style="width:{{ progress_data.no_criticality_percent }}%">
+				{{ progress_data.no_criticality_percent }}%
+				</div>
+			</div>
 		</div>
-		<div class="col-sm-4" >
+	</div>
+	
+	<div class="row">
+		
+		<div class="col-sm-4"  >
 		<h3>Known failures : {{ progress_data.failed_services }}</h3>
 		<h4>Scenario:</h4>
 		<ol>
@@ -77,8 +90,7 @@
 		</div>
 	</div>
 	
-		
-	</div>
+	
 </div>
 
 
