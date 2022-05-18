@@ -1,0 +1,8 @@
+name: check-latest-dd-trace-java
+on: [push]
+jobs:
+  run-echo-command:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "hello world"
+      - run: echo "check latest version for dd-trace-java agent"
