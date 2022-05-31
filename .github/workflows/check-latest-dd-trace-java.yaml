@@ -15,7 +15,7 @@ jobs:
           git checkout -b temp_pr
           git add temp_file
           git commit -m "commit made by github actions"
-          git config  user.name "gagsingh"
-          git config  user.email "gagsingh@expediagroup"
+          git config --global user.name "gagsingh"
+          git config --global user.email "gagsingh@expediagroup.com"
           git push 
 
