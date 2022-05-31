@@ -1,8 +1,21 @@
 name: check-latest-dd-trace-java
-on: [push]
+on: [workflow_dispatch]
 jobs:
   run-echo-command:
     runs-on: ubuntu-latest
     steps:
       - run: echo "hello world"
       - run: echo "check latest version for dd-trace-java agent"
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: Creating a pull request
+        run: |
+          echo "Creating a pull request"
+          touch temp_file
+          git checkout -b temp_pr
+          git add temp_file
+          git commit -m "commit made by github actions"
+          git config  user.name "gagsingh"
+          git config  user.email "gagsingh@expediagroup"
+          git push 
+
