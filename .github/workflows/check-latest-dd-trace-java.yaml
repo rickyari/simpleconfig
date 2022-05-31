@@ -17,5 +17,5 @@ jobs:
           git config --global user.email "gagsingh@expediagroup.com"
           git add temp_file
           git commit -m "commit made by github actions"
-          git push 
+          git push --set-upstream origin temp_pr
 
