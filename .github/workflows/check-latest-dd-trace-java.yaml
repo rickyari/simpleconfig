@@ -18,4 +18,12 @@ jobs:
           git add temp_file
           git commit -m "commit made by github actions"
           git push --set-upstream origin temp_pr
+          echo "Creating a pull request"
+          gh api \
+          -H "Accept: application/vnd.github.v3+json" \
+          /repos/rickyari/simpleconfig/pulls \
+          -f title='Amazing new feature'
+          -f body='Please pull these awesome changes in!'
+          -f head='simpleconfig/temp_pr'
+          -f base='master'
 
