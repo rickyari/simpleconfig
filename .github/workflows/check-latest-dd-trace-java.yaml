@@ -13,9 +13,9 @@ jobs:
           echo "Creating a pull request"
           touch temp_file
           git checkout -b temp_pr
-          git add temp_file
-          git commit -m "commit made by github actions"
           git config --global user.name "gagsingh"
           git config --global user.email "gagsingh@expediagroup.com"
+          git add temp_file
+          git commit -m "commit made by github actions"
           git push 
 
